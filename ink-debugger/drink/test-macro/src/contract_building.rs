@@ -2,9 +2,16 @@ use std::{collections::{hash_map::Entry, HashMap}, env, path::PathBuf, sync::{Mu
 
 use cargo_metadata::{Metadata, MetadataCommand, Package};
 use contract_build::{
-    BuildArtifacts, BuildMode, ExecuteArgs, Features, ImageVariant, ManifestPath,
+    BuildArtifacts, BuildMode, ComposeBuildArgs, ExecuteArgs, Features, ImageVariant, ManifestPath,
     MetadataArtifacts, MetadataSpec, Network, OutputType, UnstableFlags, Verbosity,
 };
+
+struct NoBuildArgs;
+impl ComposeBuildArgs for NoBuildArgs {
+    fn compose_build_args() -> anyhow::Result<Vec<String>> {
+        Ok(vec![])
+    }
+}
 
 use crate::bundle_provision::BundleProviderGenerator;
 
@@ -129,7 +136,7 @@ fn build_contract_crate(pkg: FeaturedPackage) -> (String, PathBuf) {
                 image: ImageVariant::Default,
             };
 
-            let result = contract_build::execute(args).expect("Error building contract");
+            let result = contract_build::execute::<NoBuildArgs>(args).expect("Error building contract");
             let bundle_path = match result
                 .metadata_result
                 .expect("Metadata should have been generated")
