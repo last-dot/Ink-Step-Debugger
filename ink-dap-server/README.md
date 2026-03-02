@@ -1,42 +1,47 @@
 Ink! v6 Debug Adapter
 Step-by-step debugger for Ink! v6 smart contracts, implementing the Debug Adapter Protocol (DAP) for VS Code integration.
-Overview
-This Python server acts as a bridge between:
 
-VS Code Debug UI (via DAP protocol)
+Overview
+This Rust binary acts as a bridge between:
+
+VS Code Debug UI (via DAP protocol over stdio)
 Rust-based PolkaVM execution environment
 
 Architecture
-VS Code <--(DAP)--> Python Server <--(JSON-RPC)--> Rust Debugger
+VS Code <--(DAP/stdio)--> Rust DAP Server <--(HTTP :9229)--> ink-debug-rpc (sandbox)
+
 Development Setup
 
-Install dependencies:
+Build the release binary:
 
-bashpip install -r requirements.txt
+```bash
+cargo build --release
+```
 
-Run the debug adapter:
+The binary is picked up automatically by the VS Code extension from `target/release/ink-dap-server`.
 
-bashpython main.py
 Project Structure
-ink-debugger-python/
+ink-dap-server/
 ├── src/
-│   ├── adapter/      # DAP protocol implementation
-│   ├── bridge/       # Communication with Rust process
-│   ├── mapping/      # Source code to instruction mapping
-│   └── utils/        # Logging and helpers
-├── tests/            # Unit tests
-├── docs/             # Documentation
-└── main.py           # Entry point
+│   ├── main.rs           # Entry point, DAP request loop
+│   ├── command_handler.rs # DAP command routing and handlers
+│   ├── service.rs        # HTTP endpoints (/log, /pause)
+│   ├── state.rs          # DAP session state
+│   ├── types.rs          # Shared types
+│   ├── utils.rs          # Helpers
+│   └── log.rs            # Async log channel
+└── Cargo.toml
+
 Tasks
 
- Init basic Python debug framework
- Implement start of Sandbox/Debugger
- Implement DAP handshake with VSCode extension
- Implement line-intruction mapping
- Implement contract execution via Sandbox/Debugger
+ Implement DAP handshake with VS Code extension
+ Implement HTTP log endpoint for sandbox step events
+ Implement start/launch/threads/stack trace/disconnect handlers
+ Implement breakpoint line storage
+ Implement execution pause on breakpoint hit (M2)
+ Implement stepping (M2)
 
 Team
 
-Python Server: Mark
-Rust Backend: Maliketh
+Rust DAP Server: Maliketh
 VS Code Extension: TBD
