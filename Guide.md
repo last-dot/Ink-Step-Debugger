@@ -32,14 +32,9 @@ You should see the **"Run Test | Debug"** buttons above each DRink test in `lib.
 
 
 ## 4. Run a DRink Test
-<<<<<<< HEAD
 
 1. Press `F5` or run **"Launch"** from the Run menu. This starts the debug session — you'll see confirmation in the debug console that the **Rust DAP server** is running and responding. Since breakpoints and step functionality are not yet implemented, you can stop the session at this point.
 2. Click **"Run Test"** on any test (or press Run button from the Run menu).
-=======
-1.	Press F5 or run **“Launch”** from the Run menu. This starts the debug session — you’ll see confirmation in the Python backend logs file. You should also see logs in the debug console confirming that the **Python DAP server** is running and responding — this verifies the extension is properly connected to the backend. Since breakpoints and step functionality are not yet implemented, you can stop the session at this point.
-2. Click **“Run Test”** on any test (or press Run button from the Run menu).  
->>>>>>> b907a3022e86b7217bbc9783cb4198a3e9b6f91c
 Wait for the build in the terminal to complete.
 3. This triggers the **DRink test pipeline**:
 - **Macro execution** - starts the DRink flow.
@@ -48,24 +43,14 @@ Wait for the build in the terminal to complete.
 
 
 ## 5. Observe Logs
-<<<<<<< HEAD
 
 1. Open the **Debug Console** in VSCode.
 2. You should see logs with `[ink_debug_rpc::sandbox_rpc]` prefix.
 3. These logs come from our **custom sandbox RPC** — each log line corresponds to a **program counter (step)** in contract execution.
-=======
-1. Open the **console output** in VSCode (Terminal).
-2. You should see logs with [ink_debug_rpc::sandbox_rpc] prefix
-3. These logs come from our **custom sandbox RPC** - each log line corresponds to a **program counter (step)** in contract execution.
->>>>>>> b907a3022e86b7217bbc9783cb4198a3e9b6f91c
 
 **Success Criteria**
 - `ink-dap-server` binary is built successfully.
 - Extension launches correctly.
 - Sample workspace builds.
 - DRink test runs end-to-end.
-<<<<<<< HEAD
 - Console shows `[ink_debug_rpc::sandbox_rpc]` logs with step info.
-=======
-- Console shows `[ink_debug_rpc::sandbox_rpc]` logs with step info.
->>>>>>> b907a3022e86b7217bbc9783cb4198a3e9b6f91c
