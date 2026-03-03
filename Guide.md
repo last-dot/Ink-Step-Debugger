@@ -3,6 +3,86 @@
 This guide describes how to **manually test** the `ink-trace-extension` end-to-end inside VSCode.
 The project is built on Ink! v6 — make sure to use cargo darkly for all builds and runs to ensure compatibility.
 
+---
+
+## Architecture
+
+### Current Architecture (Milestone 1)
+
+```
++-------------------------------+
+|  VS Code Extension            |
+|  ink-trace-extension          |
+|  launches DAP server binary   |
++-------------------------------+
+            | DebugAdapterExecutable (stdio)
+            v
++-------------------------------+
+|  Rust DAP Server              |
+|  ink-dap-server               |
+|  handles DAP protocol         |
++-------------------------------+
+            | HTTP POST to localhost:9229
+            v
++-------------------------------+
+|  HTTP Bridge                  |
+|  ink-debug-rpc                |  <-- temporary, PoC only
+|  embedded in the sandbox      |
++-------------------------------+
+            | step callbacks / PC logging
+            v
++-------------------------------+
+|  Sandbox                      |
+|  ink-debugger                 |
+|  patched DRink! +             |
+|  pallet-revive                |
++-------------------------------+
+            | executes
+            v
++-------------------------------+
+|  PolkaVM interpreter          |
+|  contract execution           |
++-------------------------------+
+```
+
+`ink-debug-rpc` is a temporary HTTP bridge introduced during Milestone 1 to decouple the sandbox from the DAP server during the proof-of-concept phase. It will be removed in the final architecture.
+
+### Final Architecture (planned)
+
+```
++-------------------------------+
+|  VS Code Extension            |
+|  ink-trace-extension          |
+|  ships DAP server binary      |
++-------------------------------+
+            | DebugAdapterExecutable (stdio)
+            v
++-------------------------------+
+|  Rust DAP Server              |
+|  ink-dap-server               |
+|  bundled inside extension     |
++-------------------------------+
+            | direct Rust crate dependency
+            v
++-------------------------------+
+|  Sandbox                      |
+|  DRink! + pallet-revive       |
+|  step tracing hooks           |
++-------------------------------+
+            | executes
+            v
++-------------------------------+
+|  PolkaVM interpreter          |
+|  contract execution           |
++-------------------------------+
+```
+
+Key differences from the current state:
+- `ink-debug-rpc` and the HTTP layer are removed. The DAP server depends on the sandbox directly as a Rust crate.
+- The DAP server binary is bundled inside the extension package. Zero setup for the end user.
+
+---
+
 ## 1. Build the DAP Server
 
 The extension launches the `ink-dap-server` binary automatically, so it must be built before running the extension.
