@@ -1,3 +1,4 @@
 [workspace]
 resolver = "2"
 members = ["ink-debug-rpc", "ink-dap-server"]
+exclude = ["ink-debugger", "ink-trace-extension"]
