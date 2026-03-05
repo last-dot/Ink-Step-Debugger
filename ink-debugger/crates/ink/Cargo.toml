@@ -86,7 +86,7 @@ frame-system = { version = "40.1.0", default-features = false }
 frame-support = { version = "40.1.0", default-features = false }
 pallet-balances = { version = "41.1.0", default-features = false }
 pallet-timestamp = { version = "39.0.0", default-features = false }
-pallet-revive = { path = "../pallet-revive-0.5.0", default-features = false }
+pallet-revive = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger", default-features = false }
 pallet-revive-mock-network = { version = "0.4.0", default-features = false }
 pallet-revive-uapi = { version = "0.4.0", default-features = false, features = ["unstable-hostfn"] }
 sp-externalities = { version = "0.30.0", default-features = false }
@@ -125,3 +125,61 @@ ink_storage_traits = { version = "=6.0.0-alpha", path = "crates/storage/traits",
 [profile.release]
 panic = "abort"
 lto = true
+
+# Redirect polkadot-sdk registry crates to the git fork so that all crates
+# in this workspace use the same source and avoid type incompatibilities.
+[patch.crates-io]
+frame-support = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+frame-support-procedural = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+frame-support-procedural-tools = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+frame-support-procedural-tools-derive = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+frame-system = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+frame-benchmarking = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-balances = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-timestamp = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-transaction-payment = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-revive = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-revive-proc-macro = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-revive-uapi = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-revive-fixtures = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+pallet-asset-conversion = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-api = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-api-proc-macro = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-application-crypto = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-arithmetic = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-consensus-aura = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-consensus-babe = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-consensus-slots = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-core = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-crypto-hashing = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-crypto-hashing-proc-macro = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-debug-derive = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-externalities = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-genesis-builder = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-inherents = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-io = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-keystore = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-metadata-ir = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-panic-handler = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-runtime = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-runtime-interface = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-runtime-interface-proc-macro = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-staking = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-state-machine = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-std = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-storage = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-timestamp = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-tracing = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-trie = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-version = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-version-proc-macro = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-wasm-interface = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+sp-weights = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+staging-xcm = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+staging-xcm-builder = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+staging-xcm-executor = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+xcm-procedural = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+polkadot-core-primitives = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+polkadot-parachain-primitives = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+binary-merkle-tree = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
+substrate-bip39 = { git = "https://github.com/NeonMaliket/polkadot-sdk", branch = "ink-step-debugger" }
