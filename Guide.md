@@ -108,7 +108,7 @@ The extension launches the `ink-dap-server` binary automatically, so it must be 
 
 1. In the **Extension Host window**, open: `ink-trace-extension/sampleWorkspace`
 2. Wait until the workspace finishes building.
-You should see the **"Run Test | Debug"** buttons above each DRink test in `lib.rs`.
+You should see the **"Run Test | Debug"** buttons above each DRink test in `lib.rs`, as well as above the enclosing `drink_tests` module.
 
 
 ## 4. Run a DRink Test
